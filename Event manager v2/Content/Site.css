@@ -1,0 +1,61 @@
+﻿#wrapper {
+    display:flex;
+    flex-direction:column;
+}
+
+.navbar {
+    position:static;
+}
+
+.navbar div {
+    background-color: white;
+    border-bottom: solid thin lightgray;
+    height: 60px;
+}
+
+#navbarButtons {
+    height: inherit;
+}
+
+#navbarButtons li {
+    height: inherit;
+}
+
+#navbarButtons > li a {
+    height: inherit;
+    font-size: large;
+}
+
+#navbarButtons > li a:active, #navbarButtons > li a:hover, #navbarButtons > li a:focus, #navbarButtons > li a:active {
+    background-color: inherit;
+}
+
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+    background-color: inherit;
+}
+
+.dropdown-menu {
+    padding:0;
+}
+
+.dropdown-menu > .btn-default {
+    border:none;
+    border-radius:0;
+    margin:0;
+}
+
+.imgcontainer {
+    padding: 10px;
+    padding-left: 20px;
+    height: inherit;
+    float: left;
+}
+
+#logo {
+    height: 100%;
+    width: auto;
+}
+
+.error {
+    color:red;
+}

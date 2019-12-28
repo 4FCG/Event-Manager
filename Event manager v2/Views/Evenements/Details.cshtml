@@ -1,0 +1,51 @@
+﻿@model Event_manager_v2.Views.Shared.Evenement
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Evenement</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.naam)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.naam)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.beschrijving)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.beschrijving)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.begindatum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.begindatum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.einddatum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.einddatum)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.evenement_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

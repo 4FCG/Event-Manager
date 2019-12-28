@@ -1,0 +1,29 @@
+﻿@model Event_manager_v2.Models.Beheerder
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h4>Account</h4>
+<hr />
+<dl>
+    <dt>
+        @Html.DisplayNameFor(m => m.voornaam)
+    </dt>
+    <dd>
+        @Html.DisplayFor(m => m.voornaam)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(m => m.achternaam)
+    </dt>
+    <dd>
+        @Html.DisplayFor(m => m.achternaam)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(m => m.gebruikersnaam)
+    </dt>
+    <dd>
+        @Html.DisplayFor(m => m.gebruikersnaam)
+    </dd>
+</dl>
+<hr />
+@Html.ActionLink("Wijzig account", "Edit", "Account", new { }, new {@class="btn btn-default"})

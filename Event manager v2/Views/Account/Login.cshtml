@@ -1,0 +1,33 @@
+﻿@model Event_manager_v2.Models.LoginForm
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Login", "Account", FormMethod.Post))
+{
+    <div class="form-group">
+        <label for="usernameinput">Gebruikersnaam</label>
+        @Html.TextBoxFor(m => m.gebruikersnaam, new { id = "usernameinput" })
+    </div>
+    
+    @Html.ValidationMessageFor(m => m.gebruikersnaam)
+
+    <br/>
+    <input type="submit" value="login" />
+
+    <div class="form-group error">
+        @if (ViewBag.gebruikersnaam != null)
+        {
+            @ViewBag.gebruikersnaam
+        }
+
+        @if (ViewBag.NotValidUser != null)
+        {
+            @ViewBag.NotValidUser
+        }
+    </div>
+}
+
+
