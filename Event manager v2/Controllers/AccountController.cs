@@ -44,15 +44,18 @@ namespace Event_manager_v2.Controllers
         [HttpPost]
         public ActionResult Login(LoginForm form)
         {
-            Beheerder user = db.Beheerders.FirstOrDefault(b => b.gebruikersnaam == form.gebruikersnaam);
-            if ( user != null)
+            if (ModelState.IsValid)
             {
-                SignIn(user.beheerder_id.ToString(), user.gebruikersnaam);
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                ViewBag.NotValidUser = "This user does not exist.";
+                Beheerder user = db.Beheerders.FirstOrDefault(b => b.gebruikersnaam == form.gebruikersnaam);
+                if (user != null)
+                {
+                    SignIn(user.beheerder_id.ToString(), user.gebruikersnaam);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ViewBag.NotValidUser = "This user does not exist.";
+                }
             }
             return View();
         }
@@ -69,6 +72,26 @@ namespace Event_manager_v2.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
+        }
+
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create([Bind(Include = "beheerder_id,voornaam,achternaam,gebruikersnaam,wachtwoord")] Beheerder beheerder)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Beheerders.Add(beheerder);
+                db.SaveChanges();
+
+                SignIn(beheerder.beheerder_id.ToString(), beheerder.gebruikersnaam);
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(beheerder);
         }
 
         [HttpPost]

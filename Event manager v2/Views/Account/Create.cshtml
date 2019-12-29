@@ -1,20 +1,16 @@
 ﻿@model Event_manager_v2.Models.Beheerder
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm())
-    //TODO make id readonly
+@using (Html.BeginForm()) 
 {
-   
     <div class="form-horizontal">
-        <h4>Wijzig account</h4>
+        <h4>Nieuw account</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.beheerder_id)
-
         <div class="form-group">
             @Html.LabelFor(model => model.voornaam, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -49,12 +45,12 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Terug naar account overzicht", "Index")
+    @Html.ActionLink("Terug naar inloggen", "Login")
 </div>

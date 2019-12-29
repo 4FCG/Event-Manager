@@ -12,7 +12,10 @@
         <nav class="navbar navbar-fixed-top">
             <div class="container-fluid">
                 <div class="imgcontainer navbar-header">
-                    <img id="logo" src="https://i.imgur.com/U5qnRDD.png" />
+                    <a href="@Url.Action("Index", "Home")">
+                        <img id="logo" src="https://i.imgur.com/U5qnRDD.png" />
+                    </a>
+                    
                 </div>
                 <ul id="navbarButtons" class="nav navbar-nav navbar-right">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
@@ -34,6 +37,7 @@
                     else
                     {
                         <li>@Html.ActionLink("Login", "Login", "Account")</li>
+                        <li>@Html.ActionLink("Registreer", "Create", "Account")</li>
                         //<span class="glyphicon glyphicon-log-in"></span>
                     }
                 </ul>
