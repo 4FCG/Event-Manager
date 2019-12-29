@@ -17,16 +17,19 @@ namespace Event_manager_v2.Models
         public int type { get; set; }
 
         [Required]
-        [StringLength(1000)]
-        public string query { get; set; }
-
-        [Required]
         [StringLength(100)]
         public string naam { get; set; }
 
         [Column(TypeName = "text")]
         [Required]
         public string beschrijving { get; set; }
+
+        [Required]
+        public string jsonData { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public string jsonClassType { get; set; }
 
         public virtual EvenementBeheerder EvenementBeheerder { get; set; }
 
