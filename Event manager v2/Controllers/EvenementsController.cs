@@ -114,6 +114,11 @@ namespace Event_manager_v2.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult SchrijfIn()
+        {
+            return View();
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
