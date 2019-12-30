@@ -103,19 +103,15 @@ namespace Event_manager_v2.Models
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Wijziging>()
+                .Property(e => e.query)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Wijziging>()
                 .Property(e => e.naam)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Wijziging>()
                 .Property(e => e.beschrijving)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Wijziging>()
-                .Property(e => e.jsonData)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Wijziging>()
-                .Property(e => e.jsonClassType)
                 .IsUnicode(false);
 
             modelBuilder.Entity<WijzigingsType>()
