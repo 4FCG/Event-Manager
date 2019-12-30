@@ -55,7 +55,6 @@ namespace Event_manager_v2.Controllers
                 return RedirectToAction("Index");
             }
 
-            
             return View(deelnemer);
         }
 
@@ -88,7 +87,7 @@ namespace Event_manager_v2.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.evenement = new SelectList(db.Evenements, "evenement_id", "naam", deelnemer.evenement);
+            
             return View(deelnemer);
         }
 

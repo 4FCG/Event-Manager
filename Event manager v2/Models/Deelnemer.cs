@@ -29,5 +29,6 @@ namespace Event_manager_v2.Models
         public byte goedgekeurd { get; set; }
 
         public virtual Evenement Evenement1 { get; set; }
+
     }
 }
