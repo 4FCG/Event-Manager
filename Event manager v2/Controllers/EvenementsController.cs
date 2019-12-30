@@ -103,11 +103,6 @@ namespace Event_manager_v2.Controllers
             return View(evenement);
         }
 
-        //public ActionResult MyEvents(int? id)
-        //{
-            
-        //}
-
         // POST: Evenements/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
