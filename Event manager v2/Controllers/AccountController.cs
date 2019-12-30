@@ -60,20 +60,7 @@ namespace Event_manager_v2.Controllers
             return View();
         }
 
-        public ActionResult Edit()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                int userId = Convert.ToInt32(User.Identity.GetUserId());
-                Beheerder currentUser = db.Beheerders.First(b => b.beheerder_id == userId);
-                return View(currentUser);
-            }
-            else
-            {
-                return RedirectToAction("Login", "Account");
-            }
-        }
-
+        //Create
         public ActionResult Create()
         {
             return View();
@@ -94,6 +81,21 @@ namespace Event_manager_v2.Controllers
             return View(beheerder);
         }
 
+        //Edit
+        public ActionResult Edit()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                int userId = Convert.ToInt32(User.Identity.GetUserId());
+                Beheerder currentUser = db.Beheerders.First(b => b.beheerder_id == userId);
+                return View(currentUser);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
+
         [HttpPost]
         public ActionResult Edit([Bind(Include = "beheerder_id,voornaam,achternaam,gebruikersnaam,wachtwoord")] Beheerder beheerder)
         {
@@ -106,6 +108,8 @@ namespace Event_manager_v2.Controllers
             return View(beheerder);
         }
 
+
+        //Aanmaken en verwijderen login cookie
         private void SignIn (string id, string gebruikersnaam, bool isPersistent = false)
         {
             List<Claim> claims = new List<Claim>();

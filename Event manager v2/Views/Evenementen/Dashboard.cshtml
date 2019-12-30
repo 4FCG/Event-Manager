@@ -1,0 +1,120 @@
+﻿@model Event_manager_v2.Models.EvenementDashboardViewModel
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Dashboard</h2>
+
+<div class="column-Wrapper">
+    <div class="column">
+        <div>
+            <h4>Evenement</h4>
+            <hr />
+            <dl>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Evenement.naam)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Evenement.naam)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Evenement.beschrijving)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Evenement.beschrijving)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Evenement.begindatum)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Evenement.begindatum)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Evenement.einddatum)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Evenement.einddatum)
+                </dd>
+
+            </dl>
+        </div>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Evenement.evenement_id }, new { @class="btn btn-default"})
+    </div>
+    <div class="column">
+        <h4>Beheerders</h4>
+        <table class="table">
+            <tr>
+                <th>
+                    Voornaam
+                </th>
+                <th>
+                    Achternaam
+                </th>
+            </tr>
+            @foreach (var item in Model.Beheerders)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.voornaam)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.achternaam)
+                    </td>
+                </tr>
+            }
+        </table>
+        @Html.ActionLink("+", "AddBeheerder", new { id = Model.Evenement.evenement_id }, new { @class = "btn btn-default" })
+    </div>
+    <div class="column">
+        <h4>Activiteiten</h4>
+        <table class="table">
+            <tr>
+                <th>
+                    Naam
+                </th>
+                <th>
+                    Beschrijving
+                </th>
+                <th>
+                    Begintijd
+                </th>
+                <th>
+                    Eindtijd
+                </th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model.Activiteiten)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.naam)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.beschrijving)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.begintijd)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.eindtijd)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", "Activiteiten", new { id = item.activiteit_id }, null)
+                    </td>
+                </tr>
+            }
+        </table>
+        @Html.ActionLink("+", "Create", "Activiteiten", new { id = Model.Evenement.evenement_id }, new { @class = "btn btn-default" })
+    </div>
+</div>
+<hr />
+@Html.ActionLink("Terug naar evenementen overzicht", "Index", "Evenementen", new { }, new { @class = "btn btn-default"})

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Event_manager_v2.Models.Evenement>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>Evenementen</h4>
+<hr/>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.naam)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.beschrijving)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.begindatum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.einddatum)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.naam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.beschrijving)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.begindatum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.einddatum)
+            </td>
+            <td>
+                @if (item.EvenementBeheerders.Select(m => m.beheerder).Contains((int)ViewBag.UserId))
+                {
+                    @Html.ActionLink("Dashboard", "Dashboard", new { id = item.evenement_id })
+                }
+            </td>
+        </tr>
+    }
+
+</table>
