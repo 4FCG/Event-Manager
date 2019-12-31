@@ -42,10 +42,10 @@
             @Html.DisplayFor(modelItem => item.einddatum)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.evenement_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.evenement_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.evenement_id }) |
-            @*@Html.Partial("_Inschrijven")*@
+            @Html.ActionLink("Edit", "Edit", new { id = item.evenement_id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.evenement_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.evenement_id }) |
+            @Html.ActionLink("Inschrijven", "SchrijfIn", "Deelnemers", new { id = item.evenement_id }, null)
         </td>
     </tr>
 }
