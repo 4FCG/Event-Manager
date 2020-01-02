@@ -37,9 +37,20 @@ namespace Event_manager_v2.Controllers
         }
 
         // GET: Deelnemers/SchrijfIn
-        public ActionResult SchrijfIn()
+        [HttpGet]
+        public ActionResult SchrijfIn(int? id)
         {
-            return View();
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                Deelnemer deelnemer = new Deelnemer {evenement = (int) id};
+
+                return View(deelnemer);
+
+            }
         }
 
         // POST: Deelnemers/SchrijfIn
