@@ -222,6 +222,7 @@
     <Content Include="Views\Deelnemers\Edit.cshtml" />
     <Content Include="Views\Deelnemers\Index.cshtml" />
     <Content Include="Views\Shared\_Inschrijven.cshtml" />
+    <Content Include="Views\Deelnemers\Goedkeuren.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

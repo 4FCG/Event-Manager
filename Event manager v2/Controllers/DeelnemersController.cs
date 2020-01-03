@@ -46,7 +46,7 @@ namespace Event_manager_v2.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-                Deelnemer deelnemer = new Deelnemer {evenement = (int) id};
+                Deelnemer deelnemer = new Deelnemer { evenement = (int)id };
 
                 return View(deelnemer);
 
@@ -81,7 +81,7 @@ namespace Event_manager_v2.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.evenement = new SelectList(db.Evenements, "evenement_id", "naam", deelnemer.evenement);
+            
             return View(deelnemer);
         }
 
@@ -98,7 +98,7 @@ namespace Event_manager_v2.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            
+
             return View(deelnemer);
         }
 
@@ -127,6 +127,38 @@ namespace Event_manager_v2.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        //GET Deelnemers/Goedkeuren/id
+        [HttpGet]
+        public ActionResult Goedkeuren(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Deelnemer deelnemer = db.Deelnemers.Find(id);
+            if (deelnemer == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.evenement = new SelectList(db.Evenements, "evenement_id", "naam", deelnemer.evenement);
+            return View(deelnemer);
+
+        }
+
+        //POST Deelnemers/Goedkeuren/id
+        [HttpPost]
+        public ActionResult Goedkeuren([Bind(Include = "deelnemer_id, voornaam, achternaam, email, evenement, goedgekeurd")] Deelnemer deelnemer)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(deelnemer).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(deelnemer);
+        } 
 
         protected override void Dispose(bool disposing)
         {

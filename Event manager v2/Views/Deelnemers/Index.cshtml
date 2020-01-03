@@ -48,10 +48,18 @@
             @Html.DisplayFor(modelItem => item.goedgekeurd)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.deelnemer_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.deelnemer_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.deelnemer_id })
+            @Html.ActionLink("Details", "Details", new { id = item.deelnemer_id }) |
+
         </td>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.deelnemer_id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.deelnemer_id }) |
+                @Html.ActionLink("Goedkeuren", "Goedkeuren", new { id = item.deelnemer_id }) |
+                </td>
+            }
+
     </tr>
 }
 
