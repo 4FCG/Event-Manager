@@ -128,5 +128,20 @@ namespace Event_manager_v2.Models
                 .HasForeignKey(e => e.type)
                 .WillCascadeOnDelete(false);
         }
+
+        //TODO move to wijzigingen controller
+        /// <summary>
+        /// Checks if the current user is the account linked to an EvenementBeheerder.
+        /// </summary>
+        /// <param name="evenementBeheerderId"></param>
+        /// <returns></returns>
+        public bool IsAuthorized (int evenementBeheerderId, string beheerderId)
+        {
+            if (EvenementBeheerders.Find(evenementBeheerderId).beheerder.ToString() == beheerderId)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

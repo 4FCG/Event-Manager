@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Event_manager_v2.Models.Wijziging>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>Mijn Wijzigingen</h4>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.naam)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.beschrijving)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WijzigingsType)
+        </th>
+        <th>
+            Doelwit
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.naam)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.beschrijving)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WijzigingsType.naam)
+        </td>
+        <td>
+            @item.jsonClassType.Substring(24)
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "Delete", new { id = item.wijziging_id })
+        </td>
+    </tr>
+}
+
+</table>
