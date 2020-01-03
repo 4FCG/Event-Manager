@@ -15,7 +15,7 @@
                     <a href="@Url.Action("Index", "Home")">
                         <img id="logo" src="https://i.imgur.com/U5qnRDD.png" />
                     </a>
-                    
+
                 </div>
                 <ul id="navbarButtons" class="nav navbar-nav navbar-right">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
@@ -23,13 +23,21 @@
                     //logged in
                     {
                         <li class="dropdown">
+                            <a class="dropdown-toggle" role="button" id="EvenementDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                                Evenementen
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="btn btn-default btn-block">@Html.ActionLink("Nieuw Event", "Create", "Evenements")</li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
                             <a class="dropdown-toggle" role="button" id="accountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 @User.Identity.Name
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="btn btn-default btn-block">@Html.ActionLink("Account", "Index", "Account")</li>
-                                <li class="btn btn-default btn-block">@Html.ActionLink("Wijzigingen", "Index", "Wijzigingen")</li>
                                 <li class="btn btn-default btn-block">@Html.ActionLink("Logout", "Logout", "Account")</li>
                             </ul>
                         </li>

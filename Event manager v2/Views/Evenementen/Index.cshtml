@@ -44,6 +44,7 @@
                 @if (item.EvenementBeheerders.Select(m => m.beheerder).Contains((int)ViewBag.UserId))
                 {
                     @Html.ActionLink("Dashboard", "Dashboard", new { id = item.evenement_id })
+
                 }
             </td>
         </tr>
