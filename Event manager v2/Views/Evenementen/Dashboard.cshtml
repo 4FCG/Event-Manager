@@ -47,7 +47,7 @@
 
             </dl>
         </div>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Evenement.evenement_id }, new { @class="btn btn-default"})
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Evenement.evenement_id }, new { @class = "btn btn-default" })
     </div>
     <div class="column">
         <h4>Beheerders</h4>
@@ -109,12 +109,16 @@
                     </td>
                     <td>
                         @Html.ActionLink("Edit", "Edit", "Activiteiten", new { id = item.activiteit_id }, null)
+                        @Html.ActionLink("Delete", "Delete", "Activiteiten", new { id = item.activiteit_id }, null)
                     </td>
                 </tr>
             }
         </table>
-        @Html.ActionLink("+", "Create", "Activiteiten", new { id = Model.Evenement.evenement_id }, new { @class = "btn btn-default" })
+        @Html.ActionLink("+", "Create", "Activiteiten", new { evenement_id = Model.Evenement.evenement_id }, new { @class = "btn btn-default" })
     </div>
 </div>
 <hr />
-@Html.ActionLink("Terug naar evenementen overzicht", "Index", "Evenementen", new { }, new { @class = "btn btn-default"})
+@Html.ActionLink("Wijzigingen in afwachting", "EvenementWijzigingen", "Wijzigingen", new { evenement_id = Model.Evenement.evenement_id }, new { @class = "btn btn-default" })
+<br />
+<br />
+@Html.ActionLink("Terug naar evenementen overzicht", "Index", "Evenementen", new { }, new { @class = "btn btn-default" })
