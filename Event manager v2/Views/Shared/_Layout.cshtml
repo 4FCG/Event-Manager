@@ -23,6 +23,15 @@
                     //logged in
                     {
                         <li class="dropdown">
+                            <a class="dropdown-toggle" role="button" id="EvenementDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                                Evenementen
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="btn btn-default btn-block">@Html.ActionLink("Nieuw Event", "Create", "Evenements")</li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
                             <a class="dropdown-toggle" role="button" id="accountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 @User.Identity.Name
                                 <span class="caret"></span>
@@ -30,7 +39,6 @@
                             <ul class="dropdown-menu">
                                 <li class="btn btn-default btn-block">@Html.ActionLink("Account", "Index", "Account")</li>
                                 <li class="btn btn-default btn-block">@Html.ActionLink("Logout", "Logout", "Account")</li>
-                                <li class="btn btn-default btn-block">@Html.ActionLink("Nieuw Event", "Create", "Evenements")</li>
                             </ul>
                         </li>
                     }
