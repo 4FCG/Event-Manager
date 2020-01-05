@@ -62,12 +62,18 @@
     justify-content:space-between;
 }
 
-.column-Wrapper .btn {
-    margin-top:auto;
+.buttons {
+    margin-top: auto;
 }
+
+
 
 .column {
     display: flex;
     flex-direction:column;
     align-items:flex-start;
+}
+
+.container {
+    width:90%;
 }

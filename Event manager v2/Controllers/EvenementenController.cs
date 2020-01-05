@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -24,28 +25,29 @@ namespace Event_manager_v2.Controllers
 
         public ActionResult Create()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
             return View();
         }
 
         [HttpPost]
         public ActionResult Create([Bind(Include = "evenement_id,naam,beschrijving,begindatum,einddatum")] Evenement evenement)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                var change = new Wijziging();
-                change.beheerder = 1;
-                change.beschrijving = "Json test";
-                change.type = 1;
-                change.naam = "Json";
-
-                change.jsonClassType = evenement.GetType().ToString();
-                change.jsonData = new JavaScriptSerializer().Serialize(evenement);
-
-                db.Wijzigings.Add(change);
+                db.Evenements.Add(evenement);
+                EvenementBeheerder evenementBeheerder = new EvenementBeheerder
+                {
+                    evenement = evenement.evenement_id,
+                    beheerder = Convert.ToInt32(User.Identity.GetUserId())
+                };
+                db.EvenementBeheerders.Add(evenementBeheerder);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Dashboard", new { id = evenement.evenement_id });
             }
-            return View();
+            return View(evenement);
         }
 
         public ActionResult Dashboard(int? id)
@@ -74,6 +76,160 @@ namespace Event_manager_v2.Controllers
             };
 
             return View(viewmodel);
+        }
+
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Evenement evenement = db.Evenements.Find(id);
+            if (evenement == null)
+            {
+                return HttpNotFound();
+            }
+            if (!User.Identity.IsAuthenticated || !IsEventBeheerder(evenement))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
+            return View(evenement);
+        }
+
+        [HttpPost]
+        public ActionResult Edit([Bind(Include = "evenement_id,naam,beschrijving,begindatum,einddatum")] Evenement evenement)
+        {
+            if (ModelState.IsValid)
+            {
+                if (db.Evenements.Find(evenement.evenement_id).EvenementBeheerders.Count() > 1)
+                {
+                    TempData["wijziging"] = GenerateWijziging(evenement, 3);
+                    return RedirectToAction("Create", "Wijzigingen", null);
+                }
+                else
+                {
+                    db.Entry(evenement).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Dashboard", new { id = evenement.evenement_id });
+                }
+
+            }
+            return View(evenement);
+        }
+
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Evenement evenement = db.Evenements.Find(id);
+            if (evenement == null)
+            {
+                return HttpNotFound();
+            }
+            if (!User.Identity.IsAuthenticated || !IsEventBeheerder(evenement))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
+            return View(evenement);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Evenement evenementProxy = db.Evenements.Find(id);
+            //Create non proxy copy
+            Evenement evenement = new Evenement
+            {
+                evenement_id = id,
+                naam = evenementProxy.naam,
+                beschrijving = evenementProxy.beschrijving,
+                begindatum = evenementProxy.begindatum,
+                einddatum = evenementProxy.einddatum
+            };
+
+            if (db.Evenements.Find(evenement.evenement_id).EvenementBeheerders.Count() > 1)
+            {
+                TempData["wijziging"] = GenerateWijziging(evenement, 2);
+                return RedirectToAction("Create", "Wijzigingen", null);
+            }
+            else
+            {
+                db.Evenements.Remove(evenementProxy);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+        }
+
+        //TODO wijziging maken voor beheerder toevoegen
+
+        public ActionResult AddBeheerder(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Evenement evenement = db.Evenements.Find(id);
+            if (evenement == null)
+            {
+                return HttpNotFound();
+            }
+            if (!User.Identity.IsAuthenticated || !IsEventBeheerder(evenement))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
+
+            EvenementBeheerder evenementBeheerder = new EvenementBeheerder
+            {
+                evenement = evenement.evenement_id
+            };
+            IEnumerable<Beheerder> beheerders = db.Beheerders.ToList().Where(b => !evenement.EvenementBeheerders.Select(e => e.beheerder).Contains(b.beheerder_id));
+            ViewBag.beheerder = new SelectList(beheerders, "beheerder_id", "gebruikersnaam", "-1");
+
+            return View(evenementBeheerder);
+        }
+
+        [HttpPost]
+        public ActionResult AddBeheerder([Bind(Include = "evenement_beheerder_id, evenement, beheerder")] EvenementBeheerder evenementBeheerder)
+        {
+            if (ModelState.IsValid)
+            {
+                db.EvenementBeheerders.Add(evenementBeheerder);
+                db.SaveChanges();
+                return RedirectToAction("Dashboard", new { id = evenementBeheerder.evenement} );
+            }
+
+            return View(evenementBeheerder);
+        }
+
+
+
+        private bool IsEventBeheerder(Evenement evenement)
+        {
+            int userId = Convert.ToInt32(User.Identity.GetUserId());
+            return evenement.EvenementBeheerders.ToList().Select(b => b.beheerder).Contains(userId);
+        }
+
+        private Wijziging GenerateWijziging(Evenement evenement, int type)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                int userId = Convert.ToInt32(User.Identity.GetUserId());
+                int beheerder = db.EvenementBeheerders.Where(e => e.evenement == evenement.evenement_id).First(b => b.beheerder == userId).evenement_beheerder_id;
+                Wijziging change = new Wijziging
+                {
+                    beheerder = beheerder,
+                    type = type,
+                    jsonClassType = evenement.GetType().ToString(),
+                    jsonData = new JavaScriptSerializer().Serialize(evenement)
+                };
+                return change;
+            }
+            else
+            {
+                throw (new Exception("No logon found"));
+            }
         }
     }
 }
