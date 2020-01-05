@@ -47,9 +47,6 @@ namespace Event_manager_v2.Controllers
             return View(activiteit);
         }
 
-        // POST: Activiteiten/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         public ActionResult Create([Bind(Include = "activiteit_id,naam,beschrijving,evenement,begintijd,eindtijd,evenement_beheerder")] Activiteit activiteit)
         {
@@ -72,7 +69,6 @@ namespace Event_manager_v2.Controllers
             return View(activiteit);
         }
 
-        // GET: Activiteiten/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -100,9 +96,6 @@ namespace Event_manager_v2.Controllers
             return View(activiteit);
         }
 
-        // POST: Activiteiten/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         public ActionResult Edit([Bind(Include = "activiteit_id,naam,beschrijving,evenement,begintijd,eindtijd,evenement_beheerder")] Activiteit activiteit)
         {
@@ -123,8 +116,7 @@ namespace Event_manager_v2.Controllers
 
             return View(activiteit);
         }
-        //TODO Check if user is allowed to make changes to the activiteit.
-        // GET: Activiteiten/Delete/5
+
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -144,7 +136,6 @@ namespace Event_manager_v2.Controllers
             return View(activiteit);
         }
 
-        // POST: Activiteiten/Delete/5
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {

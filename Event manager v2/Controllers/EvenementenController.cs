@@ -67,12 +67,14 @@ namespace Event_manager_v2.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
             }
+            IEnumerable<Deelnemer> deelnemers = db.Deelnemers.ToList().Where(d => d.evenement == evenement.evenement_id);
 
             EvenementDashboardViewModel viewmodel = new EvenementDashboardViewModel
             {
                 Evenement = evenement,
                 Activiteiten = evenement.Activiteits,
-                Beheerders = beheerders
+                Beheerders = beheerders,
+                Deelnemers = deelnemers
             };
 
             return View(viewmodel);
@@ -116,6 +118,8 @@ namespace Event_manager_v2.Controllers
             }
             return View(evenement);
         }
+
+        //Wijziging delete redirects to dashboard on execution which results in an error
 
         public ActionResult Delete(int? id)
         {

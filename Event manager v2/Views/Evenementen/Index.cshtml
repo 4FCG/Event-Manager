@@ -41,6 +41,7 @@
                 @Html.DisplayFor(modelItem => item.einddatum)
             </td>
             <td>
+                @Html.ActionLink("Inschrijven", "SchrijfIn", "Deelnemers", new { id = item.evenement_id} , null)
                 @if (item.EvenementBeheerders.Select(m => m.beheerder).Contains((int)ViewBag.UserId))
                 {
                     @Html.ActionLink("Dashboard", "Dashboard", new { id = item.evenement_id })

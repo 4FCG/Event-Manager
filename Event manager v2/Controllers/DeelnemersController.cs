@@ -63,7 +63,7 @@ namespace Event_manager_v2.Controllers
             {
                 db.Deelnemers.Add(deelnemer);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home", null);
             }
 
             return View(deelnemer);
@@ -89,7 +89,6 @@ namespace Event_manager_v2.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "deelnemer_id,voornaam,achternaam,email,evenement,goedgekeurd")] Deelnemer deelnemer)
         {
             if (ModelState.IsValid)
@@ -119,7 +118,6 @@ namespace Event_manager_v2.Controllers
 
         // POST: Deelnemers/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Deelnemer deelnemer = db.Deelnemers.Find(id);
@@ -141,7 +139,6 @@ namespace Event_manager_v2.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.evenement = new SelectList(db.Evenementen, "evenement_id", "naam", deelnemer.evenement);
             return View(deelnemer);
 
         }
@@ -154,7 +151,7 @@ namespace Event_manager_v2.Controllers
             {
                 db.Entry(deelnemer).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Dashboard", "Evenementen", new { id=deelnemer.evenement});
             }
 
             return View(deelnemer);

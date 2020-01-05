@@ -123,6 +123,54 @@
             @Html.ActionLink("+", "Create", "Activiteiten", new { evenement_id = Model.Evenement.evenement_id }, new { @class = "btn btn-default" })
         </div>
     </div>
+    <div class="column">
+        <h4>Deelnemers</h4>
+        <table class="table">
+            <tr>
+                <th>
+                    Voornaam
+                </th>
+                <th>
+                    Achternaam
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Goedgekeurd
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.Deelnemers)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.voornaam)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.achternaam)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.email)
+                    </td>
+                    <td>
+                        @if (item.goedgekeurd == 0)
+                        {
+                            <text>Nee</text>
+                        }
+                        else
+                        {
+                            <text>Ja</text>
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("Goedkeuren", "Goedkeuren", "Deelnemers", new { id = item.deelnemer_id }, null)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
 </div>
 <hr />
 @Html.ActionLink("Wijzigingen in afwachting", "EvenementWijzigingen", "Wijzigingen", new { evenement_id = Model.Evenement.evenement_id }, new { @class = "btn btn-default" })
