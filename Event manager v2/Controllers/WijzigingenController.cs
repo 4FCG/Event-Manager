@@ -164,7 +164,13 @@ namespace Event_manager_v2.Controllers
             {
                 if (type == "Evenement")
                 {
-                    db.Entry(Wijzigingobject as Evenement).State = EntityState.Modified;
+                    Evenement newEvent = Wijzigingobject as Evenement;
+                    Evenement oldEvent = db.Evenements.Find(newEvent.evenement_id);
+                    oldEvent.naam = newEvent.naam;
+                    oldEvent.beschrijving = newEvent.beschrijving;
+                    oldEvent.begindatum = newEvent.begindatum;
+                    oldEvent.einddatum = newEvent.einddatum;
+                    db.Entry(oldEvent).State = EntityState.Modified;
                 }
                 else if (type == "Activiteit")
                 {

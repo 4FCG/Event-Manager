@@ -1,0 +1,54 @@
+﻿@model Event_manager_v2.Models.Evenement
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h4>Evenement verwijderen</h4>
+    <p>Een evenement verwijderen is permanent en alle data is permanent verloren.</p>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.naam)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.naam)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.beschrijving)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.beschrijving)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.begindatum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.begindatum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.einddatum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.einddatum)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to dashboard", "Dashboard", "Evenementen", new { id = Model.evenement_id }, new { @class = "btn btn-default" })
+        </div>
+    }
+</div>

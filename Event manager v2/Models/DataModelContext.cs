@@ -50,7 +50,7 @@ namespace Event_manager_v2.Models
                 .HasMany(e => e.EvenementBeheerders)
                 .WithRequired(e => e.Beheerder1)
                 .HasForeignKey(e => e.beheerder)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Deelnemer>()
                 .Property(e => e.voornaam)
@@ -76,19 +76,19 @@ namespace Event_manager_v2.Models
                 .HasMany(e => e.Activiteits)
                 .WithRequired(e => e.Evenement1)
                 .HasForeignKey(e => e.evenement)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Evenement>()
                 .HasMany(e => e.Deelnemers)
                 .WithRequired(e => e.Evenement1)
                 .HasForeignKey(e => e.evenement)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Evenement>()
                 .HasMany(e => e.EvenementBeheerders)
                 .WithRequired(e => e.Evenement1)
                 .HasForeignKey(e => e.evenement)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<EvenementBeheerder>()
                 .HasMany(e => e.Activiteits)
@@ -100,7 +100,7 @@ namespace Event_manager_v2.Models
                 .HasMany(e => e.Wijzigings)
                 .WithRequired(e => e.EvenementBeheerder)
                 .HasForeignKey(e => e.beheerder)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Wijziging>()
                 .Property(e => e.naam)

@@ -47,7 +47,10 @@
 
             </dl>
         </div>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Evenement.evenement_id }, new { @class = "btn btn-default" })
+        <div class="buttons">
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Evenement.evenement_id }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Delete", "Delete", new { id = Model.Evenement.evenement_id }, new { @class = "btn btn-default" })
+        </div>
     </div>
     <div class="column">
         <h4>Beheerders</h4>
@@ -72,7 +75,9 @@
                 </tr>
             }
         </table>
-        @Html.ActionLink("+", "AddBeheerder", new { id = Model.Evenement.evenement_id }, new { @class = "btn btn-default" })
+        <div class="buttons">
+            @Html.ActionLink("+", "AddBeheerder", new { id = Model.Evenement.evenement_id }, new { @class = "btn btn-default" })
+        </div>
     </div>
     <div class="column">
         <h4>Activiteiten</h4>
@@ -114,7 +119,9 @@
                 </tr>
             }
         </table>
-        @Html.ActionLink("+", "Create", "Activiteiten", new { evenement_id = Model.Evenement.evenement_id }, new { @class = "btn btn-default" })
+        <div class="buttons">
+            @Html.ActionLink("+", "Create", "Activiteiten", new { evenement_id = Model.Evenement.evenement_id }, new { @class = "btn btn-default" })
+        </div>
     </div>
 </div>
 <hr />

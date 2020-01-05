@@ -168,7 +168,7 @@ namespace Event_manager_v2.Controllers
             }
             else
             {
-                db.Activiteits.Remove(activiteit);
+                db.Activiteits.Remove(activiteitProxy);
                 db.SaveChanges();
                 return RedirectToAction("Dashboard", "Evenementen", new { id = activiteit.evenement });
             }
