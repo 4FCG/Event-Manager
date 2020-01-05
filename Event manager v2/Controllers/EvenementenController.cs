@@ -77,6 +77,20 @@ namespace Event_manager_v2.Controllers
                 Deelnemers = deelnemers
             };
 
+            //progress bar percentage
+            if (evenement.Activiteits.Count() > 0)
+            {
+                string progress = Math.Round(((double)evenement.Activiteits.Where(a => a.voltooid != (Byte)0).Count() / (double)evenement.Activiteits.Count() * 100), 0).ToString();
+                ViewBag.progress = "width:"+ progress + "%;";
+                ViewBag.progresspercentage = progress + "%";
+            }
+            else
+            {
+                ViewBag.progress = "width:100%;";
+                ViewBag.progresspercentage = "100%";
+            }
+            
+
             return View(viewmodel);
         }
 

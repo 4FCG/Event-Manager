@@ -97,7 +97,7 @@ namespace Event_manager_v2.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit([Bind(Include = "activiteit_id,naam,beschrijving,evenement,begintijd,eindtijd,evenement_beheerder")] Activiteit activiteit)
+        public ActionResult Edit([Bind(Include = "activiteit_id,naam,beschrijving,evenement,begintijd,eindtijd,evenement_beheerder,voltooid")] Activiteit activiteit)
         {
             if (ModelState.IsValid)
             {

@@ -95,6 +95,9 @@
                 <th>
                     Eindtijd
                 </th>
+                <th>
+                    Voltooid
+                </th>
                 <th></th>
             </tr>
             @foreach (var item in Model.Activiteiten)
@@ -113,12 +116,26 @@
                         @Html.DisplayFor(modelItem => item.eindtijd)
                     </td>
                     <td>
+                        @if (item.voltooid == 0)
+                        {
+                            <text>Nee</text>
+                        }
+                        else
+                        {
+                            <text>Ja</text>
+                        }
+                    </td>
+                    <td>
                         @Html.ActionLink("Edit", "Edit", "Activiteiten", new { id = item.activiteit_id }, null)
                         @Html.ActionLink("Delete", "Delete", "Activiteiten", new { id = item.activiteit_id }, null)
                     </td>
                 </tr>
             }
         </table>
+        <p>Voortgang:</p>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style=@ViewBag.progress>@ViewBag.progresspercentage</div>
+        </div>
         <div class="buttons">
             @Html.ActionLink("+", "Create", "Activiteiten", new { evenement_id = Model.Evenement.evenement_id }, new { @class = "btn btn-default" })
         </div>

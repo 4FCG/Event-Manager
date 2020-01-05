@@ -28,6 +28,8 @@ namespace Event_manager_v2.Models
 
         public int evenement_beheerder { get; set; }
 
+        public byte voltooid { get; set; }
+
         public virtual Evenement Evenement1 { get; set; }
 
         public virtual EvenementBeheerder EvenementBeheerder { get; set; }
